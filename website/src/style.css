@@ -56,12 +56,38 @@ h3 {
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.05;
+  animation: wordGlow 5s ease-in-out infinite;
 }
 
 p {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+  animation: wordGlowSoft 5s ease-in-out infinite;
+}
+
+@keyframes wordGlow {
+  0%, 100% {
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35), 0 0 22px rgba(61, 90, 254, 0.16);
+  }
+  50% {
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35), 0 0 34px rgba(61, 90, 254, 0.38), 0 0 60px rgba(61, 90, 254, 0.12);
+  }
+}
+
+@keyframes wordGlowSoft {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(61, 90, 254, 0.06);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(61, 90, 254, 0.16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1, h2, h3, p, .eyebrow, .hero__title, .impact__text .word {
+    animation: none !important;
+  }
 }
 
 .eyebrow {
@@ -339,6 +365,7 @@ p {
   filter: blur(8px);
   transform: translateY(18px) translateZ(0);
   will-change: opacity, filter, transform;
+  animation: wordGlow 5s ease-in-out infinite;
 }
 
 /* ---------- showcase ---------- */

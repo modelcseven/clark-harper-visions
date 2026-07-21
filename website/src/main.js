@@ -152,12 +152,27 @@ function setupCreatorGallery() {
   });
 }
 
-/* ---------- simple scroll-reveal for standard sections ---------- */
+/* ---------- hero entrance (GSAP timeline, page load) ---------- */
+
+function setupHeroEntrance() {
+  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  tl.fromTo(".nav", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.7 })
+    .fromTo(".hero .eyebrow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.35")
+    .fromTo(".hero__title", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.9 }, "-=0.35")
+    .fromTo(".hero__sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.55")
+    .fromTo(
+      ".hero__cta a",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.55, stagger: 0.12 },
+      "-=0.4"
+    )
+    .fromTo(".scroll-cue", { opacity: 0 }, { opacity: 1, duration: 0.6 }, "-=0.25");
+}
+
+/* ---------- standalone section reveals ---------- */
 
 function setupReveals() {
-  const targets = document.querySelectorAll(
-    ".showcase__inner, .feature, .work-card, .specs__table, .buy__panel"
-  );
+  const targets = document.querySelectorAll(".showcase__inner, .buy__panel");
 
   targets.forEach((el) => {
     gsap.fromTo(
@@ -174,6 +189,60 @@ function setupReveals() {
         },
       }
     );
+  });
+
+  gsap.fromTo(
+    ".footer",
+    { opacity: 0, y: 30 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power2.out",
+      scrollTrigger: { trigger: ".footer", start: "top 92%" },
+    }
+  );
+}
+
+/* ---------- staggered grid reveals (features, work, about, process) ---------- */
+
+function setupGridStagger(containerSelector, itemSelector) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+  const items = container.querySelectorAll(itemSelector);
+  if (!items.length) return;
+
+  gsap.fromTo(
+    items,
+    { opacity: 0, y: 34 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      ease: "power2.out",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: container,
+        start: "top 82%",
+      },
+    }
+  );
+}
+
+/* ---------- subtle parallax on section headings ---------- */
+
+function setupParallax() {
+  gsap.utils.toArray(".section-head").forEach((el) => {
+    gsap.to(el, {
+      yPercent: -8,
+      ease: "none",
+      scrollTrigger: {
+        trigger: el,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
   });
 }
 
@@ -267,6 +336,7 @@ function setupCursorFX() {
 /* ---------- init ---------- */
 
 setupVideoScrub();
+setupHeroEntrance();
 setupImpact();
 setupTypewriter();
 setupCursorFX();
@@ -282,6 +352,11 @@ if (!isTouch) {
     });
 }
 setupReveals();
+setupGridStagger(".features__grid--six", "article");
+setupGridStagger(".work__grid", "article");
+setupGridStagger(".about__grid", "article");
+setupGridStagger(".specs__table", ".spec-row");
+setupParallax();
 
 ScrollTrigger.refresh();
 
