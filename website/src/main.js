@@ -177,10 +177,99 @@ function setupReveals() {
   });
 }
 
+/* ---------- hero eyebrow typewriter ---------- */
+
+function setupTypewriter() {
+  const el = document.querySelector("[data-typewriter]");
+  if (!el) return;
+  const text = el.textContent;
+  el.textContent = "";
+  el.classList.add("typewriter");
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced) {
+    el.textContent = text;
+    el.classList.add("done");
+    return;
+  }
+
+  let i = 0;
+  function type() {
+    el.textContent = text.slice(0, i);
+    i++;
+    if (i <= text.length) {
+      setTimeout(type, 38);
+    } else {
+      el.classList.add("done");
+    }
+  }
+  type();
+}
+
+/* ---------- cursor glow + particle trail ---------- */
+
+function setupCursorFX() {
+  if (isTouch) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const glow = document.createElement("div");
+  glow.className = "cursor-glow";
+  document.body.appendChild(glow);
+
+  let mx = innerWidth / 2;
+  let my = innerHeight / 2;
+  let gx = mx;
+  let gy = my;
+  let lastSpawn = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    spawnParticle(mx, my);
+  });
+
+  function raf() {
+    gx += (mx - gx) * 0.12;
+    gy += (my - gy) * 0.12;
+    glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%, -50%)`;
+    requestAnimationFrame(raf);
+  }
+  raf();
+
+  function spawnParticle(x, y) {
+    const now = performance.now();
+    if (now - lastSpawn < 45) return;
+    lastSpawn = now;
+
+    const p = document.createElement("div");
+    p.className = "cursor-particle";
+    const size = 3 + Math.random() * 4;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${x + (Math.random() - 0.5) * 12}px`;
+    p.style.top = `${y + (Math.random() - 0.5) * 12}px`;
+    document.body.appendChild(p);
+
+    const dx = (Math.random() - 0.5) * 40;
+    const dy = -20 - Math.random() * 30;
+
+    const anim = p.animate(
+      [
+        { transform: "translate(-50%, -50%) scale(1)", opacity: 0.9 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.2)`, opacity: 0 },
+      ],
+      { duration: 900 + Math.random() * 400, easing: "ease-out" }
+    );
+    anim.onfinish = () => p.remove();
+  }
+}
+
 /* ---------- init ---------- */
 
 setupVideoScrub();
 setupImpact();
+setupTypewriter();
+setupCursorFX();
 if (!isTouch) {
   setupCreatorGallery();
 } else {
