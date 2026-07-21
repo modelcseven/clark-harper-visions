@@ -1,0 +1,6 @@
+node_modules/
+website/node_modules/
+website/dist/
+mohitvirli.github.io-master/
+*.log
+.DS_Store
