@@ -3,8 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clark &amp; Harper Visions — Crafted Digital. Envisioned Beyond.</title>
-  <meta name="description" content="Clark & Harper Visions is a premium web design and digital experience studio for ambitious brands." />
+
+  <!-- Primary SEO -->
+  <title>Clark &amp; Harper Visions | Web Design &amp; AI Digital Agency in Leander, TX</title>
+  <meta name="description" content="Veteran-owned digital agency in Leander, TX, serving the Greater Austin metro. Bespoke web design, AI integration, branding, and digital marketing engineered for ambitious brands." />
+  <meta name="keywords" content="web design Leander TX, Austin web design agency, veteran-owned digital agency, AI web development Texas, custom website design, brand identity design, Clark & Harper Visions" />
+  <meta name="author" content="Clark & Harper Visions" />
+  <meta name="robots" content="index, follow" />
+  <!-- TODO: update to the final production domain once live -->
+  <link rel="canonical" href="https://www.chvisions.com/" />
+
+  <!-- Open Graph / Facebook, LinkedIn -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clark & Harper Visions" />
+  <meta property="og:title" content="Clark & Harper Visions | Web Design & AI Digital Agency in Leander, TX" />
+  <meta property="og:description" content="Veteran-owned digital agency in Leander, TX, serving the Greater Austin metro. Bespoke web design, AI integration, branding, and digital marketing engineered for ambitious brands." />
+  <meta property="og:image" content="/img/chv-logo.png" />
+  <meta property="og:url" content="https://www.chvisions.com/" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Clark & Harper Visions | Web Design & AI Digital Agency in Leander, TX" />
+  <meta name="twitter:description" content="Veteran-owned digital agency in Leander, TX, serving the Greater Austin metro. Bespoke web design, AI integration, branding, and digital marketing." />
+  <meta name="twitter:image" content="/img/chv-logo.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  <link rel="apple-touch-icon" href="/img/favicon.png" />
+  <meta name="theme-color" content="#0b0c0e" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,13 +39,37 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
+
+  <!-- Structured data: local/professional service business -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Clark & Harper Visions",
+    "description": "Veteran-owned digital agency offering web design, development, AI integration, branding, and digital marketing.",
+    "image": "/img/chv-logo.png",
+    "telephone": "+1-737-766-7424",
+    "email": "info@chvisions.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Leander",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    },
+    "areaServed": ["Leander TX", "Austin TX", "Greater Austin Metro"],
+    "priceRange": "$$",
+    "sameAs": []
+  }
+  </script>
 </head>
 <body>
-  <video id="bgv" class="bg-video" muted playsinline preload="auto" src="/bg.mp4"></video>
-  <div class="bg-tint"></div>
-  <div class="motion-glow"></div>
+  <a class="skip-link" href="#page">Skip to content</a>
 
-  <div class="mobile-poster"></div>
+  <video id="bgv" class="bg-video" muted playsinline preload="auto" src="/bg.mp4" aria-hidden="true"></video>
+  <div class="bg-tint" aria-hidden="true"></div>
+  <div class="motion-glow" aria-hidden="true"></div>
+
+  <div class="mobile-poster" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="nav__logo" href="#home">
@@ -29,6 +80,7 @@
       <a href="#work">Work</a>
       <a href="#specs">Process</a>
       <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
       <a href="#buy">Contact</a>
     </nav>
     <a class="nav__cta glass-btn glass-btn--primary" href="#buy">Book a Consultation</a>
@@ -271,6 +323,32 @@
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section id="faq" class="section faq">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions.</h2>
+      </div>
+      <div class="faq__list">
+        <details class="faq-item glass">
+          <summary>What does the process look like once we start?</summary>
+          <p>We follow the five-stage process outlined above — Strategy, Plan, Execution, Evolution, Delivery — with clear milestones and direct communication at every stage. No black-box handoffs.</p>
+        </details>
+        <details class="faq-item glass">
+          <summary>Do you only work with businesses in Texas?</summary>
+          <p>We're based in Leander, TX and serve the Greater Austin metro directly, but our work is Texas-built and globally deployed — we partner with ambitious brands anywhere.</p>
+        </details>
+        <details class="faq-item glass">
+          <summary>Can you help with an existing site, not just new builds?</summary>
+          <p>Yes. Alongside new builds we handle redesigns, performance and accessibility tuning, and ongoing maintenance for existing sites.</p>
+        </details>
+        <details class="faq-item glass">
+          <summary>How do we get started?</summary>
+          <p>Book a consultation or request a quote below. We'll start with a discovery conversation about your brand, goals, and timeline before any proposal.</p>
+        </details>
+      </div>
+    </section>
+
     <!-- 7. CTA / BUY -->
     <section id="buy" class="section buy">
       <div class="buy__panel glass">
@@ -302,6 +380,7 @@
       <a href="#work">Work</a>
       <a href="#specs">Process</a>
       <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
       <a href="#buy">Contact</a>
     </nav>
     <p class="footer__contact">
@@ -310,6 +389,11 @@
       <a href="mailto:info@chvisions.com">info@chvisions.com</a>
       <span>&middot;</span>
       <span>Leander, TX</span>
+    </p>
+    <p class="footer__legal">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <span>&middot;</span>
+      <a href="/terms-of-service.html">Terms of Service</a>
     </p>
     <p class="footer__copy">&copy; 2026 Clark &amp; Harper Visions. All rights reserved.</p>
   </footer>

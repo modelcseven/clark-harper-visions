@@ -283,6 +283,7 @@ function setupCursorFX() {
 
   const glow = document.createElement("div");
   glow.className = "cursor-glow";
+  glow.setAttribute("aria-hidden", "true");
   document.body.appendChild(glow);
 
   let mx = innerWidth / 2;
@@ -312,6 +313,7 @@ function setupCursorFX() {
 
     const p = document.createElement("div");
     p.className = "cursor-particle";
+    p.setAttribute("aria-hidden", "true");
     const size = 3 + Math.random() * 4;
     p.style.width = `${size}px`;
     p.style.height = `${size}px`;
