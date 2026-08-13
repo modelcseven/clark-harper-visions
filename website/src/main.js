@@ -36,6 +36,19 @@ let pendingT = null;
 function setupVideoScrub() {
   if (!bgVideo) return;
 
+  // Scroll-scrubbing seeks to an arbitrary frame on every scroll tick, and
+  // because the file is all-keyframe, every seek is a full-frame decode.
+  // Desktop GPUs/CPUs shrug this off; phones don't — it competes with the
+  // scroll thread and is the main source of both "laggy video" and
+  // "unresponsive page" reports on mobile. So on touch devices, skip the
+  // scrub entirely and just let the video play as a normal looping ambient
+  // background instead — still visible, none of the per-tick decode cost.
+  if (isTouch) {
+    bgVideo.loop = true;
+    bgVideo.play().catch(() => {});
+    return;
+  }
+
   // Never let more than one seek be in flight — if new scroll updates
   // arrive while a seek is still resolving, just remember the latest
   // requested time and jump straight there once the current one lands.
@@ -103,6 +116,31 @@ function setupImpact() {
   if (!section) return;
   const pin = section.querySelector(".impact__pin");
   const words = [...section.querySelectorAll(".word")];
+
+  // The pinned, per-word `filter: blur()` reveal recalculates on every
+  // scroll tick across ~20 elements at once. Blur is one of the most
+  // expensive properties to repaint/composite, and combined with a scroll
+  // pin it's a common cause of scroll jank on mobile GPUs. Swap it for a
+  // single cheap (transform/opacity only, GPU-composited) fade-in that
+  // fires once instead of continuously recalculating.
+  if (isTouch) {
+    words.forEach((w) => {
+      w.style.filter = "none";
+    });
+    gsap.fromTo(
+      words,
+      { opacity: 0.15, y: 12 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.03,
+        scrollTrigger: { trigger: section, start: "top 75%" },
+      }
+    );
+    return;
+  }
 
   function render(p) {
     words.forEach((word, i) => {

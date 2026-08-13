@@ -91,6 +91,15 @@ p {
   }
 }
 
+/* Continuous text-shadow animation on every heading/paragraph means the
+   browser repaints dozens of elements on a permanent loop. Cheap enough on
+   desktop GPUs; a real drag on phones, so it's dropped entirely on touch. */
+@media (hover: none), (max-width: 768px) {
+  h1, h2, h3, p, .eyebrow, .hero__title, .impact__text .word {
+    animation: none !important;
+  }
+}
+
 .eyebrow {
   font-family: var(--font-label);
   text-transform: uppercase;
