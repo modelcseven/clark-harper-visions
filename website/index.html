@@ -387,6 +387,34 @@
           <a href="mailto:info@chvisions.com"><span>Email</span>info@chvisions.com</a>
           <span class="buy__contact-hq"><span>HQ</span>Leander, TX</span>
         </div>
+
+        <form id="contact-form" class="contact-form" method="POST" action="/contact.php" novalidate>
+          <p class="contact-form__divider"><span>Or send us a message</span></p>
+          <div class="contact-form__row">
+            <div class="contact-form__field">
+              <label for="cf-name">Name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name" required />
+            </div>
+            <div class="contact-form__field">
+              <label for="cf-email">Email</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email" required />
+            </div>
+          </div>
+          <div class="contact-form__field">
+            <label for="cf-phone">Phone <span>(optional)</span></label>
+            <input type="tel" id="cf-phone" name="phone" autocomplete="tel" />
+          </div>
+          <div class="contact-form__field">
+            <label for="cf-message">Project details</label>
+            <textarea id="cf-message" name="message" rows="4" required></textarea>
+          </div>
+          <div class="contact-form__hp">
+            <label for="cf-company">Company</label>
+            <input type="text" id="cf-company" name="company" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="glass-btn glass-btn--primary contact-form__submit">Send Message</button>
+          <p class="contact-form__status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 

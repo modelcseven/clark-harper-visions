@@ -382,10 +382,53 @@ function setupMobileNav() {
   });
 }
 
+/* ---------- contact form ---------- */
+
+function setupContactForm() {
+  const form = document.querySelector("#contact-form");
+  if (!form) return;
+
+  const status = form.querySelector(".contact-form__status");
+  const submitBtn = form.querySelector(".contact-form__submit");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.textContent = "";
+    status.removeAttribute("data-state");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        status.textContent = "Thanks — we'll be in touch shortly.";
+        status.setAttribute("data-state", "success");
+        form.reset();
+      } else {
+        status.textContent = data.error || "Something went wrong. Please email us directly.";
+        status.setAttribute("data-state", "error");
+      }
+    } catch {
+      status.textContent = "Something went wrong. Please email us directly.";
+      status.setAttribute("data-state", "error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Message";
+    }
+  });
+}
+
 /* ---------- init ---------- */
 
 setupVideoScrub();
 setupMobileNav();
+setupContactForm();
 setupHeroEntrance();
 setupImpact();
 setupTypewriter();

@@ -805,6 +805,111 @@ p {
   color: var(--muted);
 }
 
+/* ---------- contact form ---------- */
+
+.contact-form {
+  margin-top: 2.4rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+
+.contact-form__divider {
+  text-align: center;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .contact-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.contact-form__field label {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-form__field label span {
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  font-family: var(--font);
+  font-size: 0.95rem;
+  color: var(--text);
+  background: rgba(247, 245, 242, 0.04);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.75rem 0.9rem;
+  resize: vertical;
+}
+
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.contact-form__hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form__submit {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.contact-form__status {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+.contact-form__status[data-state="success"] {
+  color: #4ade80;
+}
+
+.contact-form__status[data-state="error"] {
+  color: #f87171;
+}
+
 /* ---------- footer ---------- */
 
 .footer {
