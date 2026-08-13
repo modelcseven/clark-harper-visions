@@ -45,7 +45,19 @@ function setupVideoScrub() {
   // background instead — still visible, none of the per-tick decode cost.
   if (isTouch) {
     bgVideo.loop = true;
-    bgVideo.play().catch(() => {});
+    bgVideo.muted = true;
+
+    // Some mobile browsers silently refuse a programmatic play() even when
+    // muted — iOS Low Power Mode and Safari's "Never Auto-Play" setting
+    // both block it with no error. The one thing every browser allows is
+    // play() called directly from a user gesture, so retry on the visitor's
+    // first touch/scroll/click as a guaranteed fallback.
+    const tryPlay = () => bgVideo.play().catch(() => {});
+    tryPlay();
+    const resumeOnGesture = () => tryPlay();
+    document.addEventListener("touchstart", resumeOnGesture, { once: true, passive: true });
+    document.addEventListener("scroll", resumeOnGesture, { once: true, passive: true });
+    document.addEventListener("click", resumeOnGesture, { once: true });
     return;
   }
 
