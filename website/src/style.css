@@ -37,6 +37,7 @@ body {
 
 body {
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 img {
@@ -211,8 +212,95 @@ p {
   padding: 0.6rem 1.2rem;
 }
 
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 60;
+}
+
+.nav__toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 4.5rem;
+  right: clamp(1rem, 4vw, 1.5rem);
+  left: clamp(1rem, 4vw, 1.5rem);
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.25rem;
+  font-family: var(--font-label);
+  font-size: 1rem;
+  transform: translateY(-14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.mobile-nav.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav a {
+  padding: 0.85rem 0.5rem;
+  color: var(--stone);
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-nav a:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav__cta {
+  margin-top: 0.6rem;
+  text-align: center;
+  border-bottom: none !important;
+}
+
 @media (max-width: 768px) {
-  .nav__links {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
     display: none;
   }
 }
@@ -243,6 +331,7 @@ p {
 
 .hero {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -342,11 +431,13 @@ p {
 
 .impact {
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 0 clamp(1.25rem, 6vw, 7rem);
 }
 
 .impact__pin {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
 }
@@ -513,6 +604,7 @@ p {
 .workflow__pin {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: center;

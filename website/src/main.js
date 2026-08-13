@@ -51,13 +51,26 @@ function setupVideoScrub() {
     }
   });
 
+  // Clamp seeks to whatever is actually buffered so far. Seeking past the
+  // buffered edge forces the browser to stall on a network fetch before it
+  // can resolve the seek — on a real connection (unlike local dev, where
+  // the file is instant from disk) that's the main source of scrub lag.
+  function bufferedEnd(t) {
+    const b = bgVideo.buffered;
+    for (let i = 0; i < b.length; i++) {
+      if (t >= b.start(i) && t <= b.end(i)) return t;
+    }
+    return b.length ? Math.min(t, b.end(b.length - 1)) : 0;
+  }
+
   function seekTo(t) {
+    const clamped = bufferedEnd(t);
     if (videoSeeking) {
-      pendingT = t;
+      pendingT = clamped;
       return;
     }
     videoSeeking = true;
-    bgVideo.currentTime = t;
+    bgVideo.currentTime = clamped;
   }
 
   const onReady = () => {
@@ -335,9 +348,44 @@ function setupCursorFX() {
   }
 }
 
+/* ---------- mobile nav drawer ---------- */
+
+function setupMobileNav() {
+  const toggle = document.querySelector(".nav__toggle");
+  const drawer = document.querySelector("#mobile-nav");
+  if (!toggle || !drawer) return;
+
+  function close() {
+    toggle.setAttribute("aria-expanded", "false");
+    drawer.setAttribute("aria-hidden", "true");
+    drawer.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  function open() {
+    toggle.setAttribute("aria-expanded", "true");
+    drawer.setAttribute("aria-hidden", "false");
+    drawer.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) close();
+    else open();
+  });
+
+  drawer.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+}
+
 /* ---------- init ---------- */
 
 setupVideoScrub();
+setupMobileNav();
 setupHeroEntrance();
 setupImpact();
 setupTypewriter();
