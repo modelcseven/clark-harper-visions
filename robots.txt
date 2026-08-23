@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.chvisions.com/sitemap.xml
+Sitemap: https://www.chvdesigns.com/sitemap.xml

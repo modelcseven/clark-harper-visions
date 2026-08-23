@@ -1,6 +1,6 @@
 <?php
 /**
- * Contact form handler for chvisions.com.
+ * Contact form handler for chvdesigns.com.
  * Requires PHP mail() support (standard on cPanel shared hosting).
  * Does nothing on static hosts (GitHub Pages, Netlify without functions, etc.) —
  * only works once this file is uploaded to a PHP-enabled server.
@@ -11,7 +11,7 @@ declare(strict_types=1);
 const RECIPIENT_EMAIL = "info@chvisions.com";
 // From address should match the hosting domain so the mail server's own
 // SPF/DKIM records cover it, instead of spoofing the visitor's address.
-const FROM_EMAIL = "no-reply@chvisions.com";
+const FROM_EMAIL = "no-reply@chvdesigns.com";
 
 header("Content-Type: application/json");
 
@@ -53,7 +53,7 @@ if ($email === "" || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 $subject = "New website inquiry from " . $name;
 
-$body = "New contact form submission from chvisions.com\n\n";
+$body = "New contact form submission from chvdesigns.com\n\n";
 $body .= "Name: {$name}\n";
 $body .= "Email: {$email}\n";
 $body .= "Phone: " . ($phone !== "" ? $phone : "(not provided)") . "\n\n";
